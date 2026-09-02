@@ -594,7 +594,14 @@ function presetsFor(w){
 }
 
 // ---- rendering weapon tabs & selection ----
-function renderTabs(){const t=$("#wtabs");t.innerHTML="";WTYPES.forEach(([k,n])=>{const ic=typeIconUrl[k]?'<img src="'+typeIconUrl[k]+'" alt="">':wIcon(k);const b=el("div","wtab"+(k===curType?" on":""),ic+"<span>"+n+"</span>");b.onclick=()=>{curType=k;const gt=$("#gType");if(gt)gt.value=k;renderTabs();openWeaponPicker();};t.appendChild(b);});}
+function renderTabs(){const t=$("#wtabs");t.innerHTML="";WTYPES.forEach(([k,n])=>{
+  const b=el("div","wtab"+(k===curType?" on":""));
+  const img=document.createElement("img");img.loading="lazy";img.alt="";img.src=weaponIcon({type:k,rarity:8});
+  img.onerror=function(){this.onerror=null;const s=document.createElement("span");s.innerHTML=wIcon(k);const svg=s.firstElementChild;if(svg)this.replaceWith(svg);};
+  const sp=document.createElement("span");sp.textContent=n;
+  b.appendChild(img);b.appendChild(sp);
+  b.onclick=()=>{curType=k;const gt=$("#gType");if(gt)gt.value=k;renderTabs();openWeaponPicker();};
+  t.appendChild(b);});}
 
 function selectWeapon(w){
   curWeapon=w;curType=w.type;renderTabs();
