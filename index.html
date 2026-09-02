@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MHW: Iceborne – Best Builds</title>
+<style>
+  :root{
+    --bg:#0e1116;--bg2:#141922;--panel:#1a212b;--panel2:#212a36;--line:#2b3644;--txt:#eef2f7;--dim:#9aabbd;
+    --acc:#e3b264;--acc2:#4fcfe0;--good:#6fd08a;--bad:#e0645a;--risky:#e0645a;--safe:#4fcfe0;--comfort:#6fd08a;
+  }
+  :root{
+    --bg:#08131c;--bg2:#0e1e29;--panel:#122233;--panel2:#183043;--line:#2b4a5e;--txt:#eaf2f6;--dim:#8ba6b8;--slot:#12283a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1100px 560px at 78% -12%,#173a4d,transparent),radial-gradient(900px 520px at 6% 108%,#0f2836,transparent),var(--bg);color:var(--txt);font-family:"Segoe UI",Roboto,Arial,sans-serif;font-size:14px;line-height:1.45}
+  a{color:inherit}
+  /* header */
+  header{padding:16px 22px 6px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header h1{font-size:19px;margin:0;letter-spacing:.4px;font-weight:700}
+  header h1 b{color:var(--acc)}
+  .subtitle{color:var(--dim);font-size:12px}
+  .grow{flex:1}
+  .toggles{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--panel)}
+  .seg button{background:transparent;border:none;color:var(--dim);padding:7px 13px;cursor:pointer;font-size:12px;font-weight:600}
+  .seg button.on{background:var(--acc);color:#15130c}
+  .seg.blue button.on{background:var(--acc2);color:#08151d}
+  .seglbl{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.6px;margin-right:2px;align-self:center}
+  /* weapon bar */
+  .opt svg{vertical-align:-4px}
+  .stickytop{position:sticky;top:0;z-index:1;background:var(--bg)}
+  .topbar{background:var(--bg2);border-bottom:1px solid var(--line);padding:10px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .navrow{padding:12px 22px 6px;display:flex;flex-direction:column;gap:10px}
+  .navactions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .glbl{color:var(--dim);font-size:12px;font-weight:600}
+  .navactions select{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 10px;font-size:12px;font-weight:600}
+  .seg.small button{padding:6px 10px;font-size:11px}
+  .filters{display:flex;gap:6px;padding:8px 12px 2px;flex-wrap:wrap}
+  .chip{font-size:11px;padding:4px 10px;border-radius:14px;background:var(--panel2);border:1px solid var(--line);cursor:pointer;color:var(--dim);font-weight:600}
+  .chip.on{background:var(--acc);color:#15130c;border-color:var(--acc)}
+  /* weapon hero (sticky; cards slide over it) */
+  .hero{padding:8px 22px 14px}
+  .heroCard{display:flex;align-items:center;gap:18px;background:linear-gradient(180deg,#1c2634,#141b24);border:1px solid var(--line);border-radius:16px;padding:16px 20px;max-width:1500px;margin:0 auto}
+  .heroCard.empty{color:var(--dim);justify-content:center;font-size:14px;font-style:italic}
+  .heroIcon{width:64px;height:64px;flex:0 0 64px;border-radius:14px;background:#0f1520;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--acc)}
+  .heroIcon svg{width:40px;height:40px}
+  .heroIcon img{width:100%;height:100%;object-fit:contain}
+  .optic{width:30px;height:30px;flex:0 0 30px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:7px;background:var(--panel2)}
+  .optic img{width:28px;height:28px;object-fit:contain}
+  .optic svg{width:20px;height:20px}
+  .heroMain{flex:1;min-width:0}
+  .heroName{font-size:20px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .heroType{color:var(--dim);font-size:12.5px;margin-top:2px}
+  .heroStats{display:grid;grid-template-columns:1fr 1fr;gap:2px 26px;min-width:360px}
+  .hstat{display:flex;align-items:center;gap:8px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05);padding:5px 0}
+  .hstat .hi{color:var(--dim);display:flex}.hstat .hi svg{width:16px;height:16px}
+  .hstat .hl{color:var(--dim);flex:1}
+  .hstat .hv{font-weight:700;font-variant-numeric:tabular-nums}.hstat .hv.neg{color:var(--bad)}
+  .hstat.sharprow{grid-column:1 / -1}.hstat.sharprow .hgauge{flex:1;max-width:280px}
+  @media(max-width:860px){.heroStats{grid-template-columns:1fr;min-width:0}.heroCard{flex-wrap:wrap}}
+  .wtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+  .wtab{display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 11px;cursor:pointer;color:var(--dim);font-size:12px;font-weight:600;transition:.12s}
+  .wtab:hover{border-color:var(--acc)}
+  .wtab.on{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .wtab svg{width:20px;height:20px;flex:0 0 20px}
+  .wtab img{width:22px;height:22px;flex:0 0 22px;object-fit:contain}
+  .wtab.on svg{color:var(--acc)}
+  .wpick{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .wpick .selname{font-size:15px;font-weight:700}
+  .wpick .selmeta{color:var(--dim);font-size:12px}
+  .btn{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:600}
+  .btn:hover{border-color:var(--acc)}
+  .btn.primary{background:var(--acc);color:#15130c;border-color:var(--acc)}
+  /* layout */
+  .wrap{padding:22px 22px 60px;position:relative;z-index:5;background:var(--bg);border-radius:22px 22px 0 0;box-shadow:0 -16px 34px -10px rgba(0,0,0,.8),0 -1px 0 var(--line);min-height:100vh}
+  .hint{color:var(--dim);text-align:center;padding:60px 20px;font-size:15px}
+  .hint svg{width:46px;height:46px;opacity:.5;display:block;margin:0 auto 14px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;max-width:1500px;margin:0 auto}
+  /* build card */
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .1s,box-shadow .1s}
+  .card:hover{border-color:#3b485a}
+  .card.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc) inset,0 10px 26px -8px rgba(240,169,74,.35)}
+  .decoline{padding:2px 16px 12px;font-size:11.5px;color:var(--dim);line-height:1.5}
+  .decoline .dk{color:var(--acc2);font-weight:700;text-transform:uppercase;font-size:9.5px;letter-spacing:.5px;margin-right:6px}
+  .lnk.pick{color:var(--acc);font-weight:700}
+  .card.sel .lnk.pick{color:var(--good)}
+  /* build detail (modal) */
+  .bd-sum{display:flex;flex-wrap:wrap;gap:8px 18px;padding:11px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;margin:6px 6px 10px;font-size:13px;color:var(--dim)}
+  .bd-sum b{color:var(--txt);font-size:17px;font-variant-numeric:tabular-nums}
+  .bd-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--acc2);font-weight:700;margin:12px 10px 4px}
+  .bd-gear{padding:0 4px}
+  .bd-item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:9px;border-bottom:1px solid #202932}
+  .bd-item:hover{background:var(--panel2)}
+  .bd-item .gicon{width:42px;height:42px;flex:0 0 42px}
+  .mlist .chips{padding:2px 8px 10px}
+  .card .chead{padding:13px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+  .card .chead .nm{font-size:15px;font-weight:700}
+  .badge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+  .badge.risky{background:rgba(224,100,90,.16);color:var(--risky);border:1px solid rgba(224,100,90,.4)}
+  .badge.comfort{background:rgba(99,201,138,.14);color:var(--comfort);border:1px solid rgba(99,201,138,.4)}
+  .badge.safe{background:rgba(91,178,224,.14);color:var(--safe);border:1px solid rgba(91,178,224,.4)}
+  .badge.custom{background:rgba(240,169,74,.14);color:var(--acc);border:1px solid rgba(240,169,74,.4)}
+  .dmgrow{display:flex;gap:14px;padding:14px 16px 6px}
+  .dmgbox{flex:1}
+  .dmgbox .k{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.6px}
+  .dmgbox .v{font-size:30px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
+  .dmgbox.raw .v{color:var(--acc)}
+  .dmgbox.ele .v{color:var(--acc2)}
+  .dmgbox .sub{font-size:11px;color:var(--dim);margin-top:1px}
+  .metric{display:flex;gap:16px;padding:2px 16px 8px;flex-wrap:wrap;font-size:12px;color:var(--dim)}
+  .metric b{color:var(--txt);font-variant-numeric:tabular-nums}
+  /* sharpness gauge (in-game style) */
+  .sgauge{margin:2px 16px 2px;display:flex;align-items:center;gap:6px}
+  .sgauge .shandle{width:9px;height:16px;border-radius:2px;background:linear-gradient(#eef2f7,#8fa0b2);flex:0 0 9px;box-shadow:0 0 0 1px #05070a}
+  .sgauge .track{flex:1;height:15px;background:#0a0d12;border:1px solid #05070a;border-radius:2px;display:flex;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.7)}
+  .sgauge .track i{height:100%;display:block}
+  .sgauge .track .empty{background:#171d27}
+  .scap{font-size:10px;color:var(--dim);margin:0 16px 12px}
+  /* skill chips */
+  .chips{display:flex;flex-wrap:wrap;gap:6px;padding:2px 16px 12px}
+  .chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:16px;border:1px solid var(--line);background:var(--panel2)}
+  .chip .lv{background:rgba(255,255,255,.1);border-radius:10px;padding:0 6px;font-variant-numeric:tabular-nums;font-size:10.5px}
+  .chip.max{box-shadow:0 0 0 1px currentColor inset}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+  .setb{padding:0 16px 12px;font-size:11px;color:#c07de0}
+  /* gear list */
+  .gear{border-top:1px solid var(--line);padding:8px 10px}
+  .gitem{display:flex;align-items:center;gap:10px;padding:6px 6px;border-radius:9px}
+  .gitem:hover{background:var(--panel2)}
+  .gicon{width:34px;height:34px;flex:0 0 34px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .gicon img{width:100%;height:100%;object-fit:contain}
+  .gicon svg{width:22px;height:22px;color:var(--dim)}
+  .gtext{flex:1;min-width:0}
+  .gtext .gn{font-weight:600;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .gtext .gs{font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .slots{display:flex;gap:3px;flex:0 0 auto}
+  .slotdot{width:16px;height:16px;border-radius:4px;border:1px solid var(--line);font-size:9px;display:flex;align-items:center;justify-content:center;color:var(--dim);background:var(--bg2)}
+  .slotdot{border:none;background:transparent;width:18px;height:18px}
+  .slotdot img{width:18px;height:18px;object-fit:contain;display:block}
+  .slotdot svg{width:16px;height:16px;display:block}
+  .cfoot{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
+  .lnk{font-size:12px;color:var(--dim);cursor:pointer;padding:4px 8px;border-radius:7px}
+  .lnk:hover{color:var(--txt);background:var(--panel2)}
+  .details{display:none;padding:0 16px 12px;font-size:12px}
+  .details.on{display:block}
+  .details .drow{padding:4px 0;border-bottom:1px dashed #232c35;color:var(--dim)}
+  .details .drow b{color:var(--txt)}
+  .skeleton{height:300px;border-radius:16px;background:linear-gradient(100deg,var(--panel) 30%,var(--panel2) 50%,var(--panel) 70%);background-size:200% 100%;animation:sh 1.2s linear infinite;border:1px solid var(--line)}
+  @keyframes sh{to{background-position:-200% 0}}
+  .spin{display:inline-block;width:15px;height:15px;border:2px solid var(--line);border-top-color:var(--acc);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-3px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .foot{color:#5c6b79;font-size:11px;text-align:center;padding:24px 20px}
+  /* modal */
+  .modalBg{position:fixed;inset:0;background:rgba(0,0,0,.66);display:none;align-items:flex-start;justify-content:center;z-index:60;padding:40px 16px}
+  .modalBg.on{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;width:100%;max-width:560px;max-height:82vh;display:flex;flex-direction:column}
+  .mh{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+  .mh h3{margin:0;font-size:15px;flex:1}.x{cursor:pointer;color:var(--dim);font-size:22px}.x:hover{color:var(--txt)}
+  .modal input.search{width:100%;padding:9px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--txt);font-size:14px}
+  .mlist{overflow:auto;padding:6px}
+  .opt{padding:9px 12px;border-radius:9px;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:center}
+  .opt:hover{background:var(--panel2)}.opt .on2{font-weight:600}.opt .om{color:var(--dim);font-size:12px}
+  .opt.sel{background:rgba(240,169,74,.12);border:1px solid rgba(240,169,74,.4)}
+  .mfoot{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;align-items:center}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--acc);color:var(--txt);padding:10px 16px;border-radius:10px;z-index:80;display:none}
+  /* ===== MHW in-game skin (faithful to Set Decorations screen) ===== */
+  :root{--gold:#e7d7a4;--gold2:#c6a557;--cyan:#5fd3e6;--pip:#f3c53d;--framec:#b0924e;--namec:#e7d7a4}
+  :root{
+    --frame-svg:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='100'%20height='100'%3E%3Cg%20fill='none'%20stroke='%23b0924e'%20stroke-width='2.4'%3E%3Cpath%20d='M2%2032%20V10%20Q2%202%2010%202%20H32'/%3E%3Cpath%20d='M68%202%20H90%20Q98%202%2098%2010%20V32'/%3E%3Cpath%20d='M98%2068%20V90%20Q98%2098%2090%2098%20H68'/%3E%3Cpath%20d='M32%2098%20H10%20Q2%2098%202%2090%20V68'/%3E%3C/g%3E%3Cg%20fill='%235fd3e6'%3E%3Cpath%20d='M11%2011%20l7%200%20-3.5%203.5%20z'/%3E%3Cpath%20d='M89%2011%20l-7%200%203.5%203.5%20z'/%3E%3Cpath%20d='M89%2089%20l-7%200%203.5%20-3.5%20z'/%3E%3Cpath%20d='M11%2089%20l7%200%20-3.5%20-3.5%20z'/%3E%3C/g%3E%3C/svg%3E");
+    --frame-svg-cyan:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='100'%20height='100'%3E%3Cg%20fill='none'%20stroke='%235fd3e6'%20stroke-width='2.4'%3E%3Cpath%20d='M2%2032%20V10%20Q2%202%2010%202%20H32'/%3E%3Cpath%20d='M68%202%20H90%20Q98%202%2098%2010%20V32'/%3E%3Cpath%20d='M98%2068%20V90%20Q98%2098%2090%2098%20H68'/%3E%3Cpath%20d='M32%2098%20H10%20Q2%2098%202%2090%20V68'/%3E%3C/g%3E%3Cg%20fill='%23e7d7a4'%3E%3Cpath%20d='M11%2011%20l7%200%20-3.5%203.5%20z'/%3E%3Cpath%20d='M89%2011%20l-7%200%203.5%203.5%20z'/%3E%3Cpath%20d='M89%2089%20l-7%200%203.5%20-3.5%20z'/%3E%3Cpath%20d='M11%2089%20l7%200%20-3.5%20-3.5%20z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  body{background:
+    radial-gradient(1200px 620px at 82% -16%,#12313f,transparent),
+    radial-gradient(900px 540px at 3% 112%,#0b2331,transparent),
+    #060d14}
+  .topbar{background:linear-gradient(180deg,#0a1c29,#06111a);border-bottom:1px solid var(--gold2);box-shadow:0 1px 0 rgba(0,0,0,.5)}
+  .topbar h1{color:var(--gold);letter-spacing:.5px;text-shadow:0 1px 0 #000}.topbar h1 b{color:var(--cyan)}
+  .seglbl{color:#7ba0b3}
+  .wtab{background:linear-gradient(180deg,#0e2534,#091924);border-color:#264859;color:#a7c0ce}
+  .wtab:hover{border-color:var(--gold2)}
+  .wtab.on{background:linear-gradient(180deg,#193a4d,#0f2633);color:var(--gold);border-color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(95,211,230,.4),0 0 15px -6px var(--cyan)}
+  .btn{background:linear-gradient(180deg,#123040,#0a2130);border-color:#2b5064;color:#e7eff3}
+  .btn:hover{border-color:var(--cyan)}
+  .btn.primary{background:linear-gradient(180deg,#f0d38a,#c6994a);color:#20180a;border-color:#f2df9f;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,.2)}
+  .navactions select{background:#0a2130;border-color:#2b5064;color:#e7eff3}
+  .seg{background:#0a1d2a;border-color:#2a4d61}
+  .seg button{color:#87a5b7}
+  .seg button.on{background:var(--gold2);color:#1a1305}
+  .seg.blue button.on{background:var(--cyan);color:#05222a}
+  .chip{background:#0f2734;border-color:#264859;color:#9dbbcb}
+  .chip.on{background:var(--cyan);color:#05222a;border-color:var(--cyan)}
+  /* weapon hero = in-game status panel */
+  .heroCard{background:linear-gradient(160deg,#123141,#0a1d2a);border:1px solid var(--framec);border-radius:5px;box-shadow:inset 0 0 0 1px rgba(95,211,230,.07),inset 0 0 34px -20px var(--cyan),0 10px 30px -16px #000;position:relative}
+  .heroCard::after{content:"";position:absolute;inset:0;pointer-events:none;border:13px solid transparent;border-image:var(--frame-svg) 26 stretch;border-radius:5px}
+  .heroName{color:var(--gold);font-weight:800;letter-spacing:.3px}
+  .heroType{color:#8db0c1}
+  .heroIcon{background:#07161f;border:1px solid var(--gold2);border-radius:5px}
+  .hstat .hl{color:#8db0c1}.hstat .hv{color:#eef6f9}.hstat .hi{color:var(--cyan)}
+  .gicon,.optic{border-color:#2b5064;background:#081a26}
+  /* ornate framed build card (corner brackets like the game panels) */
+  .card{background:linear-gradient(180deg,#0f2432,#071620);border:1px solid var(--framec);border-radius:4px;position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.35),0 8px 26px -16px #000}
+  .card::before{content:"";position:absolute;inset:0;pointer-events:none;border:14px solid transparent;border-image:var(--frame-svg) 26 stretch;border-radius:4px;z-index:2}
+  .card:hover{border-color:var(--gold2)}
+  .card.sel{border-color:var(--cyan);box-shadow:inset 0 0 0 1px var(--cyan),0 10px 30px -10px rgba(95,211,230,.35)}
+  .card.sel::before{border-image:var(--frame-svg-cyan) 26 stretch}
+  .chead{background:linear-gradient(180deg,rgba(22,46,62,.55),transparent);border-bottom:1px solid var(--gold2)}
+  .chead .nm{color:var(--gold);letter-spacing:.2px}
+  .bd-h,.dk{color:var(--cyan);text-shadow:0 0 10px rgba(95,211,230,.25)}
+  .bd-sum{background:linear-gradient(180deg,#123040,#0b2130);border-color:var(--framec)}
+  .bd-item .gn{color:var(--gold)}
+  .sgauge .shandle{background:linear-gradient(#f4e8cd,#c8a768)}
+  /* in-game skill list: hex icon + tan name + yellow pips + level */
+  .sklist{padding:4px 12px 12px;display:flex;flex-direction:column;gap:0}
+  .mlist .sklist{padding:2px 6px 8px}
+  .skrow{display:flex;align-items:center;gap:9px;font-size:12.5px;padding:6px 6px;border-bottom:1px solid rgba(120,150,170,.16)}
+  .skrow .hex{width:20px;height:20px;flex:0 0 20px;display:flex;align-items:center;justify-content:center}
+  .skrow .hex svg{width:20px;height:20px;display:block}
+  .skrow .sn{flex:1;color:var(--gold);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .skrow .pips{display:flex;gap:2px;flex:0 0 auto;align-items:center}
+  .skrow .pips i{width:8px;height:13px;background:#122c3b;box-shadow:inset 0 0 0 1px #0a1a24;display:block}
+  .skrow .pips i.on{background:var(--pip);box-shadow:inset 0 0 0 1px #7a5f12}
+  .skrow.max .pips i.on{background:var(--cyan);box-shadow:inset 0 0 0 1px #1c6b78}
+  .skrow .pips .arw{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid #3a5768;margin-left:1px}
+  .skrow .lv{color:var(--gold);font-size:11px;min-width:52px;text-align:right;font-variant-numeric:tabular-nums}
+  .skrow.max .lv{color:var(--cyan)}
+  /* decoration jewel bars (Set Decorations look) */
+  .decoslot{display:flex;align-items:center;gap:8px;margin:3px 0 0 54px;padding:5px 11px;border-radius:15px;font-size:12px;background:linear-gradient(180deg,#123c4d,#0d2a38);border:1px solid #2f6577;color:#dcecf2}
+  .decoslot.empty{background:linear-gradient(180deg,#0c2632,#091d28);border:1px dashed #2a4c5d;color:#6d8da1}
+  .decoslot img{width:18px;height:18px;flex:0 0 18px;object-fit:contain}
+  .decoslot .dn{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .decoslot .dsz{color:#8fb8c8;font-weight:700;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="stickytop">
+<div class="topbar">
+  <h1><b>MHW: Iceborne</b> Best Builds</h1>
+  <span class="subtitle" id="status"><span class="spin"></span> Loading data…</span>
+  <div class="grow"></div>
+  <div class="toggles">
+    <span class="seglbl">Tier</span>
+    <div class="seg" id="segMode"><button data-m="endgame" class="on">Endgame</button><button data-m="budget">Budget</button></div>
+    <span class="seglbl">Values</span>
+    <div class="seg blue" id="segVal"><button data-v="ingame" class="on">In-game</button><button data-v="true">True Raw</button></div>
+  </div>
+</div>
+
+<div class="navrow">
+  <div class="wtabs" id="wtabs"></div>
+  <div class="navactions">
+    <button class="btn primary" id="btnWeapon">Choose weapon…</button>
+    <button class="btn" id="btnCustom">Build around skills…</button>
+    <span class="glbl" style="margin-left:6px">— or by goal:</span>
+    <select id="gGoal"><option value="raw">Max Damage</option><option value="element">Max Element</option><option value="status">Max Status</option><option value="comfort">Max Comfort</option></select>
+    <select id="gElem" style="display:none"><option>Fire</option><option>Water</option><option>Ice</option><option>Thunder</option><option>Dragon</option></select>
+    <select id="gType"></select>
+    <div class="seg small" id="gPlay"><button data-p="comfort" class="on">Comfort</button><button data-p="risky">Risky</button></div>
+    <button class="btn primary" id="gGo">Find builds</button>
+  </div>
+</div>
+
+<div class="hero" id="hero"></div>
+</div>
+
+<div class="wrap">
+  <div id="cards" class="cards"></div>
+  <div id="hint" class="hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20 L14 10 M12 8 L18 2 L20 4 L14 10 Z"/></svg>
+    Pick a weapon above to see the best builds for it.
+  </div>
+</div>
+<div class="foot">
+  Fan-made tool — not affiliated with or endorsed by Capcom. <i>MONSTER HUNTER: WORLD</i> data &amp; imagery © CAPCOM.<br>
+  Weapons: <a href="https://github.com/gatheringhallstudios/MHWorldData" target="_blank" rel="noopener">MHWorldData</a> (MIT, © Carlos Fernandez) + bundled Kulve/Safi supplement · Armor / decorations / charms / skills / set bonuses: <a href="https://mhw-db.com" target="_blank" rel="noopener">mhw-db.com</a> (© LartTyler, AGPL-3.0).<br>
+  Icons: <a href="https://github.com/OthelloRhin/MHW_Icons_SVG" target="_blank" rel="noopener">MHW_Icons_SVG</a> (MIT, © Thibault “Othello” Benoit) via jsDelivr; decoration colours cross-referenced with <a href="https://mhworld.kiranico.com" target="_blank" rel="noopener">Kiranico</a>. Full licences in CREDITS.md.<br>
+  Damage model (EFR/EFE) is an approximation.
+</div>
+
+<div class="modalBg" id="modalBg"><div class="modal">
+  <div class="mh"><h3 id="modalTitle">Select</h3><span class="x" id="modalX">&times;</span></div>
+  <div style="padding:10px 12px 0"><input class="search" id="modalSearch" placeholder="Search…" autocomplete="off"></div>
+  <div class="filters" id="modalFilters"></div>
+  <div class="mlist" id="modalList"></div>
+  <div class="mfoot" id="modalFoot" style="display:none"><span id="selCount" class="subtitle"></span><div class="grow"></div><button class="btn primary" id="modalGo">Build</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script src="mhw-kulve-safi-supplement.js"></script>
+<script src="mhw-deco-colors.js"></script>
+<script>
+const API="https://mhw-db.com";
+const RAW="https://raw.githubusercontent.com/gatheringhallstudios/MHWorldData/master/source_data/weapons/";
+const WTYPES=[["great-sword","Great Sword"],["long-sword","Long Sword"],["sword-and-shield","Sword & Shield"],["dual-blades","Dual Blades"],["hammer","Hammer"],["hunting-horn","Hunting Horn"],["lance","Lance"],["gunlance","Gunlance"],["switch-axe","Switch Axe"],["charge-blade","Charge Blade"],["insect-glaive","Insect Glaive"],["light-bowgun","Light Bowgun"],["heavy-bowgun","Heavy Bowgun"],["bow","Bow"]];
+const WTNAME=Object.fromEntries(WTYPES.map(t=>[t[0],t[1]]));
+const BLOAT={"great-sword":4.8,"long-sword":3.3,"sword-and-shield":1.4,"dual-blades":1.4,"hammer":5.2,"hunting-horn":4.2,"lance":2.3,"gunlance":2.3,"switch-axe":3.5,"charge-blade":3.6,"insect-glaive":3.1,"light-bowgun":1.3,"heavy-bowgun":1.5,"bow":1.2};
+// weapon-type archetype icons
+const ARCH={"great-sword":"blade","long-sword":"blade","sword-and-shield":"blade","dual-blades":"blade","switch-axe":"blade","charge-blade":"blade","insect-glaive":"pole","hammer":"blunt","hunting-horn":"blunt","lance":"pole","gunlance":"pole","light-bowgun":"gun","heavy-bowgun":"gun","bow":"bow"};
+const ICONS={
+  blade:'<path d="M4 20 L13 11 M11 9 L18 2 L21 5 L14 12 Z"/>',
+  blunt:'<path d="M4 20 L11 13"/><rect x="11" y="3.5" width="9" height="6.5" rx="1.4"/>',
+  pole:'<path d="M4 20 L19 5"/><path d="M19 5 l-3.5 .2 l.2 3.3"/>',
+  gun:'<path d="M3 8 h13 v3.5 h-4.5 v4.5 h-3 v-4.5 h-2.5 z"/>',
+  bow:'<path d="M7 3 a11 11 0 0 1 0 18"/><path d="M7 3 L18 12 L7 21" opacity=".55"/>'
+};
+function wIcon(type){return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">${ICONS[ARCH[type]]||ICONS.blade}</svg>`;}
+const SLOTICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="6" width="16" height="12" rx="2"/></svg>';
+const ARMOR_SLOT_ICON={
+ head:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a7 7 0 0 0-7 7v4l2 1v4h10v-4l2-1v-4a7 7 0 0 0-7-7zm-3 8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>',
+ chest:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5l8 2 8-2 1 6-3 2v6H6v-6L3 11z"/></svg>',
+ gloves:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4h3v6h1V3h2v7h1V4h3v10a5 5 0 0 1-5 5H9a4 4 0 0 1-4-4V8h2z"/></svg>',
+ waist:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9h18v6H3zm8 1h2v4h-2z"/></svg>',
+ legs:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 3h8v8l-1 10h-3l-1-8-1 8H6l-1-10z"/></svg>'
+};
+
+const SHARP_COLORS=["red","orange","yellow","green","blue","white","purple"];
+const SHARP_HEX={red:"#d33b3b",orange:"#e07b28",yellow:"#e6cf34",green:"#5cc85c",blue:"#3f7fe0",white:"#e6ecf2",purple:"#b06fe0"};
+const SHARP_RAW={red:0.50,orange:0.75,yellow:1.00,green:1.05,blue:1.20,white:1.32,purple:1.39};
+const SHARP_ELE={red:0.25,orange:0.50,yellow:0.75,green:1.00,blue:1.0625,white:1.15,purple:1.25};
+const REAL_ELE=["Fire","Water","Ice","Thunder","Dragon"];
+
+// ---- damage skills ----
+const SKILL_FX={
+  "Attack Boost":       l=>({atk:[0,3,6,9,12,15,18,21][l], aff:l>=4?5:0}),
+  "Critical Eye":       l=>({aff:[0,5,10,15,20,25,30,40][l]}),
+  "Weakness Exploit":   (l,c)=>({aff:c.weak?[0,10,15,30][l]+(c.wound?[0,5,15,20][l]:0):0}),
+  "Critical Boost":     l=>({critAdd:[0,0.05,0.10,0.15][l]}),
+  "Agitator":           (l,c)=>c.enrage?({atk:[0,4,8,12,16,20,24,28][l], aff:[0,5,5,7,7,10,15,20][l]}):{},
+  "Peak Performance":   (l,c)=>c.fullhp?({atk:[0,5,10,20][l]}):{},
+  "Maximum Might":      (l,c)=>c.fullstam?({aff:[0,10,20,30][l]}):{},
+  "Resentment":         (l,c)=>c.redhp?({atk:[0,5,10,15,20,25][l]}):{},
+  "Heroics":            (l,c)=>c.lowhp?({rawMult:[1,1.00,1.05,1.05,1.10,1.15,1.25,1.40][Math.min(l,7)]}):{},
+  "Non-elemental Boost":(l,c,w)=>(w&&!w.elementType?({rawMult:1.05}):{}),
+  "Latent Power":       (l,c)=>c.latent?({aff:[0,10,20,30,40,50,50,60][l]}):{},
+  "Offensive Guard":    (l,c)=>c.guard?({rawMult:[1,1.05,1.10,1.15][Math.min(l,3)]}):{},
+  "Coalescence":        (l,c)=>c.coalesce?({atk:[0,12,15,18][Math.min(l,3)]}):{},
+};
+const ELE_SKILLS=["Fire Attack","Water Attack","Thunder Attack","Ice Attack","Dragon Attack","Critical Element","True Critical Element","Master's Touch","Handicraft"];
+const COMFORT_SKILLS=["Health Boost","Divine Blessing","Evade Window","Evade Extender","Stamina Surge","Constitution","Earplugs","Flinch Free","Recovery Up","Speed Eating"];
+const COMFORT_SET=new Set(COMFORT_SKILLS);
+const DMG_SKILLS=new Set([...Object.keys(SKILL_FX),...ELE_SKILLS]);
+const ALL_REL=new Set([...DMG_SKILLS,...COMFORT_SKILLS]);
+// low-HP / situational skills that a Comfort (full-HP) build should NOT be built around
+const RISKY_SKILLS=new Set(["Heroics","Resentment","Latent Power"]);
+
+// condition presets
+const CC={weak:1,enrage:1,fullhp:1,fullstam:1,redhp:0,lowhp:0,latent:0,guard:0,coalesce:0}; // comfort
+const CR={weak:1,enrage:1,fullhp:0,fullstam:1,redhp:1,lowhp:1,latent:1,guard:0,coalesce:1}; // risky
+
+function skillCat(n){
+  if(/Critical Boost|Critical Element/.test(n))return "#e0645a";
+  if(/Attack Boost|Peak|Resentment|Agitator|Heroics|Non-elemental|Offensive|Coalescence/.test(n))return "#f0a94a";
+  if(/Critical Eye|Weakness Exploit|Maximum Might|Latent/.test(n))return "#48b0f0";
+  if(/ Attack$/.test(n))return "#3ecfb0";
+  if(COMFORT_SKILLS.includes(n))return "#63c98a";
+  return "#9aabbd";
+}
+
+// ---- state ----
+let DATA={armor:[],decos:[],charms:[],skills:{},setBonus:{}};
+let WEAPONS={}, armorById={}, decoById={}, charmById={}, weaponImg={}, typeIconUrl={};
+const RARITY_COLOR={1:"#9aa0a6",2:"#c9ced3",3:"#7bd08a",4:"#57c7c2",5:"#5b8fe0",6:"#9b7de0",7:"#d06fb8",8:"#e0913a",9:"#e0a63a",10:"#e6c34a",11:"#e0574a",12:"#d33b5e"};
+function rc(r){return RARITY_COLOR[r]||"#9aabbd";}
+function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/["'`]/g,"").replace(/\s+/g," ").trim();}
+// ---- real in-game-style rarity icons (MHW_Icons_SVG via jsDelivr CDN) ----
+const ICON_BASE="https://cdn.jsdelivr.net/gh/OthelloRhin/MHW_Icons_SVG@master/SVG/";
+const WICON_FOLDER={"great-sword":"Great_Sword","long-sword":"Long_Sword","sword-and-shield":"Sword_&_Shield","dual-blades":"Dual_Blades","hammer":"Hammer","hunting-horn":"Hunting_Horn","lance":"Lance","gunlance":"Gunlance","switch-axe":"Switch_Axe","charge-blade":"Charge_Blade","insect-glaive":"Insect_Glaive","light-bowgun":"Light_Bowgun","heavy-bowgun":"Heavy_Bowgun","bow":"Bow"};
+const ASLOT_FOLDER={head:"Helm",chest:"Chest",gloves:"Arms",waist:"Torso",legs:"Legs"};
+const DECO_COLOR={1:"01",2:"02",3:"03",4:"11"};
+function rk2(r){return String(Math.max(1,Math.min(12,r||8))).padStart(2,"0");}
+function weaponIcon(w){const f=WICON_FOLDER[w.type];if(!f)return "";const file=(w.type==="charge-blade"?"Charge_Blade_rank_":f+"_Rank_")+rk2(w.rarity)+".svg";return ICON_BASE+"Weapons/"+f+"/"+file;}
+function armorIcon(a){const f=ASLOT_FOLDER[a.type];if(!f)return "";return ICON_BASE+"Hunter/"+f+"/"+f+"_Rank_"+rk2(a.rarity)+".svg";}
+function charmIcon(r){return ICON_BASE+"Hunter/Charm/Charm_Rank_"+rk2(r)+".svg";}
+function decoIcon(slot){return ICON_BASE+"Decorations/Color_"+(DECO_COLOR[slot]||"00")+"_Rank_"+slot+".svg";}
+// real decoration gem colours (from MHWorldData icon_color) → the actual in-game jewel colour
+const COLOR_HEX={Red:"#d83a3a",DarkRed:"#8f2a34",Orange:"#e08a2e",Yellow:"#e8d24a",Gold:"#d4af37",Lime:"#a6d24a",Green:"#4fb050",DarkGreen:"#2f7d33",Cyan:"#46c9d6",Blue:"#3f86e0",DarkBlue:"#2f4bc0",Violet:"#9a55d0",DarkPurple:"#6a34a0",White:"#eef2f6",LightBeige:"#e6dcb8",Beige:"#cbb98a",DarkBeige:"#9c8a5e",Gray:"#9aa4ad"};
+let decoColorByName={}; // normalised deco name → colour name
+function decoHex(d){if(!d)return "#8a95a0";const c=decoColorByName[norm(d.name)];if(c&&COLOR_HEX[c])return COLOR_HEX[c];const s=(d.skills&&d.skills[0])?d.skills[0].skillName:"";return skillCat(s)||"#8a95a0";}
+// self-rendered faceted jewel in the correct colour, with a size-coloured socket ring
+function gemSVG(hex,size,px){px=px||18;const ring=SLOT_COLOR[size]||"#8a95a0";
+  return `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#0a1722" stroke="${ring}" stroke-width="1.6"/><path d="M12 5 L18 12 L12 19 L6 12 Z" fill="${hex}" stroke="#05121b" stroke-width="1"/><path d="M12 5 L18 12 L12 12 Z" fill="#ffffff" fill-opacity="0.28"/><path d="M6 12 L12 12 L12 19 Z" fill="#000000" fill-opacity="0.18"/></svg>`;}
+// real in-game decoration icon: colour index (from Kiranico) + slot-size shape.
+// name → gem colour index via the skill prefix (combo/"+"/"Hard" jewels take the first component's colour)
+const DECO_SHAPE={1:66,2:67,3:68,4:72}; // Kiranico icon shape id per slot size
+function decoColorIdx(d){if(!d||!window.DECO_ICON_COLORS)return null;let s=norm(d.name).replace(/\s+jewel\+?\s*\d*$/,"");s=s.split("/")[0].replace(/^hard\s+/,"").trim();const v=window.DECO_ICON_COLORS[s];return v==null?null:v;}
+// primary = real Kiranico sprite; on error fall back to the MHW_Icons_SVG repo; finally the drawn gem
+function decoIconEl(d,px){px=px||18;const sz=Math.max(1,Math.min(4,(d&&d.slot)||1));const idx=decoColorIdx(d);
+  if(idx==null)return gemSVG(decoHex(d),sz,px);
+  const kira="https://cdn.kiranico.net/file/kiranico/mhworld-web/images/itm/icon/"+DECO_SHAPE[sz]+"_"+idx+".png";
+  const svg=ICON_BASE+"Decorations/Color_"+String(idx).padStart(2,"0")+"_Rank_"+sz+".svg";
+  return '<img class="dgem" loading="lazy" src="'+kira+'" data-fb="'+svg+'" alt="" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.dataset.fb=\'\';}else{this.onerror=null;this.style.visibility=\'hidden\';}" style="width:'+px+'px;height:'+px+'px;object-fit:contain">';}
+let mode="endgame", valMode="ingame";
+let curWeapon=null, curType="great-sword";
+// working build (used internally by engine)
+let build={weapon:null,head:null,chest:null,gloves:null,waist:null,legs:null,charm:null,charmRank:1,decos:{},aug:{atk:0,aff:0,slot:0},handi:5};
+let cond=Object.assign({},CC);
+let curKind="raw", curSkillSet=DMG_SKILLS, curTargets=[], curBonusSet=new Set();
+// weapon-type priority skills (not captured by EFR/EFE): e.g. Gunlance shelling / CB impact phials
+const TYPE_BONUS={"gunlance":["Artillery","Guard"],"charge-blade":["Artillery"],"lance":["Guard"],"hunting-horn":["Horn Maestro"]};
+
+const $=s=>document.querySelector(s);
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",1600);}
+
+// ---- CSV & load ----
+function parseCSV(text){const lines=text.split(/\r?\n/).filter(x=>x.length);const head=splitCSVLine(lines[0]);const rows=[];for(let i=1;i<lines.length;i++){const c=splitCSVLine(lines[i]);if(!c.length)continue;const o={};head.forEach((h,j)=>o[h]=c[j]);rows.push(o);}return rows;}
+function splitCSVLine(line){const out=[];let cur="",q=false;for(let i=0;i<line.length;i++){const ch=line[i];if(q){if(ch=='"'){if(line[i+1]=='"'){cur+='"';i++;}else q=false;}else cur+=ch;}else{if(ch=='"')q=true;else if(ch==','){out.push(cur);cur="";}else cur+=ch;}}out.push(cur);return out;}
+async function getJSON(path,proj){let u=API+path;if(proj)u+="?p="+encodeURIComponent(JSON.stringify(proj));const r=await fetch(u);if(!r.ok)throw new Error(path+" "+r.status);return r.json();}
+function sharpArr(row){return SHARP_COLORS.map(c=>+row[c]||0);}
+
+async function loadAll(){
+  try{
+    // Prefer the pre-baked data.json (fast, single same-origin request, CDN-cached).
+    let baked=null;
+    try{const r=await fetch("data.json");if(r.ok)baked=await r.json();}catch(e){}
+    if(baked&&baked.weapons){
+      WEAPONS=baked.weapons;
+      DATA.armor=baked.armor||[]; DATA.decos=baked.decos||[]; DATA.charms=baked.charms||[];
+      DATA.skills=baked.skills||{}; DATA.setBonus=baked.setBonus||{};
+      DATA.armor.forEach(a=>armorById[a.id]=a); DATA.decos.forEach(d=>decoById[d.id]=d); DATA.charms.forEach(c=>charmById[c.id]=c);
+    } else {
+      // Live fallback: fetch source data directly (works even without a baked data.json).
+      const [wbTxt,wsTxt]=await Promise.all([fetch(RAW+"weapon_base.csv").then(r=>r.text()),fetch(RAW+"weapon_sharpness.csv").then(r=>r.text())]);
+      buildWeapons(parseCSV(wbTxt),parseCSV(wsTxt)); mergeSupplement();
+      const [armor,decos,charms,skills,sets,mhwWeps]=await Promise.all([
+        getJSON("/armor",{id:1,name:1,type:1,rank:1,rarity:1,defense:1,resistances:1,slots:1,skills:1,armorSet:1,assets:1}),
+        getJSON("/decorations",{id:1,name:1,slot:1,skills:1,rarity:1}),
+        getJSON("/charms",{id:1,name:1,ranks:1}),
+        getJSON("/skills",{id:1,name:1,ranks:1,description:1}),
+        getJSON("/armor/sets",{id:1,name:1,bonus:1}),
+        getJSON("/weapons",{id:1,name:1,type:1,assets:1}).catch(()=>[]),
+      ]);
+      DATA.armor=armor; DATA.decos=decos; DATA.charms=charms;
+      armor.forEach(a=>armorById[a.id]=a); decos.forEach(d=>decoById[d.id]=d); charms.forEach(c=>charmById[c.id]=c);
+      skills.forEach(s=>DATA.skills[s.id]={name:s.name,max:(s.ranks||[]).length,desc:s.description});
+      // Key set bonuses by the BONUS id (not the armor-set id): Alpha+ and Beta+ variants are
+      // separate set ids but share one bonus, so 2 Alpha + 2 Beta Fatalis must count as 4 pieces.
+      sets.forEach(s=>{if(s.bonus)DATA.setBonus[s.bonus.id]={name:s.bonus.name,ranks:s.bonus.ranks};});
+      (mhwWeps||[]).forEach(w=>{const a=w.assets||{};if(a.image)weaponImg[norm(w.name)]=a.image;if(a.icon&&!typeIconUrl[w.type])typeIconUrl[w.type]=a.icon;});
+      for(const t in WEAPONS)WEAPONS[t].forEach(w=>{w.img=weaponImg[norm(w.name)]||null;});
+    }
+    renderTabs();
+    const wc=Object.values(WEAPONS).reduce((a,w)=>a+w.length,0);
+    $("#status").innerHTML=`${wc} weapons · ${(DATA.armor||[]).length} armor · ${(DATA.charms||[]).length} charms ready${baked?" · cached":""}`;
+  }catch(e){$("#status").innerHTML=`<span style="color:var(--bad)">Load error: ${e.message}. Reload.</span>`;console.error(e);}
+}
+function buildWeapons(base,sharp){
+  const smap={}; sharp.forEach(s=>{const k=s.base_name_en+"|"+s.weapon_type;(smap[k]=smap[k]||{})[s.maxed==="TRUE"?"max":"base"]=s;});
+  base.forEach(w=>{const type=w.weapon_type;if(!BLOAT[type])return;
+    const slots=[w.slot_1,w.slot_2,w.slot_3].map(Number).filter(x=>x>0).map(r=>({rank:r}));
+    const sh=smap[w.name_en+"|"+type]||{};
+    (WEAPONS[type]=WEAPONS[type]||[]).push({id:"w"+w.id,name:w.name_en,type,rarity:+w.rarity,attack:+w.attack,affinity:+(w.affinity||0),
+      elementType:REAL_ELE.includes(w.element1)?w.element1:null,statusType:(w.element1&&!REAL_ELE.includes(w.element1))?w.element1:null,
+      elementVal:+(w.element1_attack||0),elementHidden:w.element_hidden==="TRUE",slots,
+      sharpBase:sh.base?sharpArr(sh.base):null,sharpMax:sh.max?sharpArr(sh.max):null,critElement:false,awakening:false});});
+}
+function mergeSupplement(){
+  if(typeof window==="undefined"||!window.MHW_SUPPLEMENT)return;
+  const shBase=[0,0,0,0,50,150,0],shMax=[0,0,0,0,50,120,30];
+  window.MHW_SUPPLEMENT.forEach((s,i)=>{if(!BLOAT[s.type])return;
+    (WEAPONS[s.type]=WEAPONS[s.type]||[]).push({id:"sup"+i,name:s.name,type:s.type,rarity:s.rarity,attack:s.attack,affinity:s.affinity||0,
+      elementType:s.element?s.element.type:null,statusType:s.status?s.status.type:null,elementVal:s.element?s.element.value:(s.status?s.status.value:0),
+      elementHidden:false,slots:(s.slots||[]).map(r=>({rank:r})),sharpBase:s.sharpness===null?null:shBase,sharpMax:s.sharpness===null?null:shMax,
+      critElement:!!s.critElement,awakening:!!s.awakening,tier:s.tier||"kjarr"});});
+  for(const t in WEAPONS)WEAPONS[t].sort((a,b)=>(b.rarity-a.rarity)||a.name.localeCompare(b.name));
+}
+function effSharp(w,handi){const b=w.sharpBase;if(!b)return null;const m=w.sharpMax||b;const f=Math.max(0,Math.min(5,handi||0))/5;return b.map((v,i)=>Math.round(v+(m[i]-v)*f));}
+function activeColor(arr){for(let i=arr.length-1;i>=0;i--)if(arr[i]>0)return SHARP_COLORS[i];return "red";}
+
+// ---- skills & damage ----
+// "Secret" set bonuses raise the level cap of their base skill (why meta builds wear set pieces)
+const SECRET={"Agitator Secret":"Agitator","Latent Power Secret":"Latent Power","Heroics Secret":"Heroics","Maximum Might Secret":"Maximum Might","Peak Performance Secret":"Peak Performance","Resuscitate Secret":"Resuscitate","Resentment Secret":"Resentment"};
+const SECRET_MAX={"Agitator":7,"Latent Power":7,"Heroics":7,"Maximum Might":5,"Peak Performance":5,"Resuscitate":5,"Resentment":5};
+function collectSkills(){
+  const acc={};const add=(sid,l)=>{acc[sid]=(acc[sid]||0)+l;};
+  ["head","chest","gloves","waist","legs"].forEach(k=>{const it=build[k];if(it&&it.skills)it.skills.forEach(s=>add(s.skill,s.level));});
+  if(build.charm){const rk=build.charm.ranks[build.charmRank-1]||build.charm.ranks.at(-1);rk.skills.forEach(s=>add(s.skill,s.level));}
+  Object.values(build.decos).forEach(d=>d.skills.forEach(s=>add(s.skill,s.level)));
+  const setCount={};["head","chest","gloves","waist","legs"].forEach(k=>{const it=build[k];if(it&&it.armorSet!=null){const bid=(typeof it.armorSet==="object")?it.armorSet.bonus:it.armorSet;if(bid!=null)setCount[bid]=(setCount[bid]||0)+1;}});
+  const sets=[];for(const sid in setCount){const b=DATA.setBonus[sid];if(!b)continue;b.ranks.forEach(r=>{if(setCount[sid]>=r.pieces){add(r.skill.skill,r.skill.level);sets.push(b.name+" ("+r.pieces+")");}});}
+  const nameRaw={},nameMax={};
+  for(const sid in acc){const info=DATA.skills[sid]||{name:"?",max:acc[sid]};nameRaw[info.name]=(nameRaw[info.name]||0)+acc[sid];if(nameMax[info.name]==null)nameMax[info.name]=info.max||99;}
+  for(const sec in SECRET){if(nameRaw[sec]&&SECRET_MAX[SECRET[sec]])nameMax[SECRET[sec]]=SECRET_MAX[SECRET[sec]];}
+  const byName={};for(const nm in nameRaw){const mx=nameMax[nm]||nameRaw[nm];byName[nm]={lv:Math.min(nameRaw[nm],mx),raw:nameRaw[nm],max:mx};}
+  return {byName,sets};
+}
+function computeDamage(){
+  const w=build.weapon;const {byName,sets}=collectSkills();
+  let trueRaw=w?w.attack/BLOAT[w.type]:0,aff=w?w.affinity:0,critAdd=0,rawMult=1;
+  trueRaw+=5*build.aug.atk; aff+=(build.aug.aff>0?10+5*(build.aug.aff-1):0);
+  for(const nm in byName){const fx=SKILL_FX[nm];if(!fx)continue;const r=fx(byName[nm].lv,cond,w)||{};if(r.atk)trueRaw+=r.atk;if(r.aff)aff+=r.aff;if(r.critAdd)critAdd+=r.critAdd;if(r.rawMult)rawMult*=r.rawMult;}
+  trueRaw*=rawMult;const critMult=1.25+Math.min(critAdd,0.15);aff=Math.max(-100,Math.min(100,aff));const affF=aff/100;
+  const handi=byName["Handicraft"]?Math.min(byName["Handicraft"].lv,5):0;
+  const sharp=w?effSharp(w,handi):null,color=sharp?activeColor(sharp):null,shRaw=color?SHARP_RAW[color]:1,shEle=color?SHARP_ELE[color]:1;
+  let efr=0;if(w){const base=trueRaw*shRaw;efr=affF>=0?base*(1+affF*(critMult-1)):base*(1+affF*0.25);}
+  let efe=0,eleNote="",trueEle=0;
+  if(w&&w.elementType&&w.elementVal){let flat=0,pct=0;const en=w.elementType+" Attack";
+    if(byName[en]){const lv=Math.min(byName[en].lv,6);flat+=[0,30,60,100,100,100,100][lv];pct+=[0,0,0,0,0.05,0.10,0.20][lv];}
+    if(cond.coalesce&&byName["Coalescence"])flat+=[0,30,60,90][Math.min(byName["Coalescence"].lv,3)];
+    // MHW element cap: total elemental value can't exceed the weapon's base element × 1.3
+    pct=Math.min(pct,0.20);let disp=Math.min((w.elementVal+flat)*(1+pct), w.elementVal*1.3);trueEle=disp/10;efe=trueEle*shEle;
+    // Critical Element: element crits — from the weapon's built-in awakening (Kjárr) OR the armor skill
+    const hasCE=w.critElement||byName["Critical Element"]||byName["True Critical Element"];
+    if(hasCE&&affF>0)efe*=(1+affF*(byName["True Critical Element"]?0.40:0.35));
+    if(w.elementHidden)eleNote="hidden (needs Free Element)";else if(hasCE)eleNote="incl. Critical Element";
+  }else if(w&&w.statusType){eleNote=w.statusType+" "+w.elementVal;}
+  return {trueRaw,aff,critMult,efr,efe,trueEle,color,sharp,byName,sets,eleNote};
+}
+
+// ---- optimizer ----
+const AUG_COST={atk:[3,2,2,2],aff:[2,2,2,2],slot:[3,3]};
+function augSockets(){return {10:9,11:6,12:5}[build.weapon?build.weapon.rarity:10]||0;}
+function comfortScore(bn){let s=0;s+=(bn["Health Boost"]?bn["Health Boost"].lv*8:0);s+=(bn["Divine Blessing"]?bn["Divine Blessing"].lv*8:0);s+=(bn["Evade Window"]?bn["Evade Window"].lv*4:0);return s;}
+// value of open decoration sockets by size (bigger slots fit the strong +/combo jewels)
+const SLOT_VALUE={1:5,2:8,3:11,4:17};
+let climbPhase=false;
+function slotCapValue(){let v=0;const add=sl=>(sl||[]).forEach(s=>{v+=SLOT_VALUE[s.rank]||0;});if(build.weapon)add(weaponSlots(build.weapon));["head","chest","gloves","waist","legs"].forEach(k=>{if(build[k])add(build[k].slots);});return v;}
+function objective(){
+  const d=computeDamage();let v;
+  if(curKind==="element"){const wp=build.weapon;const wgt=(wp&&["dual-blades","bow","insect-glaive","sword-and-shield"].includes(wp.type))?3.5:2;v=d.efr+d.efe*wgt;}
+  else if(curKind==="comfort"){let def=0;["head","chest","gloves","waist","legs"].forEach(k=>{const it=build[k];if(it&&it.defense)def+=it.defense.base||0;});v=d.efr+comfortScore(d.byName)+def*0.02;}
+  else if(curKind==="custom"){let t=0;const bn=d.byName;curTargets.forEach(nm=>{t+=bn[nm]?bn[nm].lv:0;});v=t*1000+d.efr;}
+  else v=d.efr;
+  if(curBonusSet.size){const bn=d.byName;let b=0;curBonusSet.forEach(n=>{if(bn[n])b+=bn[n].lv;});v+=b*15;}
+  const bn2=d.byName;
+  // Set bonuses that grant a real skill already flow through byName; only the "invisible" ones
+  // need explicit value. 2pc Fatalis (Inheritance) does nothing alone — don't reward it.
+  // 4pc Fatalis (Transcendence) = guaranteed full HP/stamina → real comfort + reliable uptime.
+  if(bn2["Transcendence"])v+=14;
+  // During the armor search decorations aren't placed yet, so reward open-slot capacity —
+  // this is what makes the meta many-size-4-slot pieces (Fatalis etc.) win.
+  if(climbPhase)v+=slotCapValue();
+  return v;
+}
+function weaponSlots(w){const b=w.slots.map(x=>({rank:x.rank}));for(let i=0;i<build.aug.slot;i++)b.push({rank:i===0?4:2,aug:true});return b;}
+function openSlots(){const out=[];const add=(k,sl)=>{(sl||[]).forEach((s,i)=>out.push({id:k+"-"+i,rank:s.rank}));};if(build.weapon)add("weapon",weaponSlots(build.weapon));["head","chest","gloves","waist","legs"].forEach(k=>{if(build[k])add(k,build[k].slots);});return out.sort((a,b)=>b.rank-a.rank);}
+// secondary value used to break ties and fill otherwise-empty slots with useful comfort jewels
+function fillUtility(){const {byName}=collectSkills();let s=comfortScore(byName);COMFORT_SKILLS.forEach(n=>{if(byName[n])s+=Math.min(byName[n].lv,byName[n].max||byName[n].lv)*0.4;});return s;}
+function assignDecos(pool){build.decos={};for(const sl of openSlots()){let best=null,bg=1e-9;const base=objective();const baseU=fillUtility();for(const d of pool){if(d.slot>sl.rank)continue;build.decos[sl.id]=d;const dg=objective()-base;const g=dg>1e-6?dg:0.0008*(fillUtility()-baseU);if(g>bg){bg=g;best=d;}delete build.decos[sl.id];}if(best)build.decos[sl.id]=best;}}
+function optimizeAug(pool){if(!build.weapon)return;const tot=augSockets();let bA={atk:0,aff:0,slot:0},bO=-1;for(let a=0;a<=3;a++)for(let f=0;f<=4;f++)for(let sl=0;sl<=2;sl++){let c=0;for(let i=0;i<a;i++)c+=AUG_COST.atk[i];for(let i=0;i<f;i++)c+=AUG_COST.aff[i];for(let i=0;i<sl;i++)c+=AUG_COST.slot[i];if(c>tot)continue;build.aug={atk:a,aff:f,slot:sl};assignDecos(pool);const o=objective();if(o>bO){bO=o;bA={atk:a,aff:f,slot:sl};}}build.aug=bA;}
+function armorCandidates(type,skillSet){const pool=DATA.armor.filter(a=>a.type===type&&(a.rank==="master"||a.rank==="high"));const sc=a=>{let s=0;(a.skills||[]).forEach(k=>{if(skillSet.has(k.skillName))s+=k.level*3;});s+=(a.slots||[]).reduce((x,y)=>x+y.rank,0)+(a.defense?a.defense.base*0.01:0);return s;};return pool.sort((a,b)=>sc(b)-sc(a)).slice(0,18);}
+function decoAllowed(d){if(mode==="endgame")return true;if(d.skills&&d.skills.length>1)return false;if(/\+/.test(d.name))return false;if(/^Hard /.test(d.name))return false;return true;}
+function snapshot(){return {weapon:build.weapon,head:build.head,chest:build.chest,gloves:build.gloves,waist:build.waist,legs:build.legs,charm:build.charm,charmRank:build.charmRank,decos:Object.assign({},build.decos),aug:Object.assign({},build.aug)};}
+function applySnap(s){Object.assign(build,{weapon:s.weapon,head:s.head,chest:s.chest,gloves:s.gloves,waist:s.waist,legs:s.legs,charm:s.charm,charmRank:s.charmRank,decos:Object.assign({},s.decos),aug:Object.assign({},s.aug)});}
+
+let _candCache={};
+function clearCandCache(){_candCache={};}
+function armorCandidatesC(type,skillSet,relevant){const key=type+"|"+(skillSet===ALL_REL?"A":"D")+"|"+(build.weapon?build.weapon.type:"")+"|"+mode;return _candCache[key]||(_candCache[key]=armorCandidates(type,relevant||skillSet));}
+// collect the best 5-piece seed for each armor set that has a bonus (top by relevance)
+function setSeeds(relevant){
+  const bySet={};
+  DATA.armor.forEach(a=>{if((a.rank==="master"||a.rank==="high")&&a.armorSet!=null){const bid=(typeof a.armorSet==="object")?a.armorSet.bonus:a.armorSet;if(bid!=null)(bySet[bid]=bySet[bid]||{})[a.type]=a;}});
+  const scored=[];
+  for(const sid in bySet){const bn=DATA.setBonus[sid];if(!bn)continue;const pieces=bySet[sid];let sc=0;Object.values(pieces).forEach(p=>(p.skills||[]).forEach(k=>{if(relevant.has(k.skillName))sc+=k.level;}));bn.ranks.forEach(r=>{sc+=(relevant.has(r.skill.skillName)?4:2);});scored.push({pieces,sc});}
+  scored.sort((a,b)=>b.sc-a.sc);return scored.slice(0,6).map(x=>x.pieces);
+}
+// Fast optimizer: cheap armor/charm hill-climb + set-anchored restarts (respects set bonuses);
+// decorations + augments are tuned ONCE at the end.
+function optimize(kind,condSet,skillSet,targets,restarts){
+  curKind=kind;cond=Object.assign({},condSet);curSkillSet=skillSet;curTargets=targets||[];
+  curBonusSet=new Set(TYPE_BONUS[build.weapon?build.weapon.type:""]||[]);
+  const tgt=new Set(curTargets);
+  const comfortCtx=kind!=="custom"&&!cond.lowhp&&!cond.redhp&&!cond.latent; // full-HP build → don't chase low-HP skills
+  const relevant=new Set(skillSet);curBonusSet.forEach(n=>relevant.add(n));
+  if(comfortCtx)RISKY_SKILLS.forEach(n=>{if(!tgt.has(n))relevant.delete(n);});
+  const poolRelevant=d=>d.skills&&d.skills.some(s=>relevant.has(s.skillName))&&!(comfortCtx&&d.skills.length===1&&RISKY_SKILLS.has(d.skills[0].skillName)&&!tgt.has(d.skills[0].skillName));
+  const pool0=DATA.decos.filter(d=>decoAllowed(d)&&poolRelevant(d));
+  // utility jewels to fill leftover slots (comfort/survival) once damage skills are capped
+  const utilPool=DATA.decos.filter(d=>decoAllowed(d)&&d.skills&&d.skills.length===1&&COMFORT_SET.has(d.skills[0].skillName));
+  const pool=pool0.concat(utilPool.filter(d=>!pool0.includes(d)));
+  const slots=["head","chest","gloves","waist","legs"];const cand={};slots.forEach(s=>cand[s]=armorCandidatesC(s,skillSet,relevant));
+  const charmCand=DATA.charms.filter(c=>c.ranks.at(-1).skills.some(s=>relevant.has(s.skillName))).slice(0,24);
+  const seeds=setSeeds(relevant);
+  let best=null,bO=-1;const R=restarts||3;
+  const climb=()=>{climbPhase=true;let changed=true,g=0;while(changed&&g++<3){changed=false;
+    for(const s of slots){let cur=build[s];let base=objective();for(const p of cand[s]){build[s]=p;const o=objective();if(o>base+1e-6){base=o;cur=p;changed=true;}}build[s]=cur;}
+    {let cur=build.charm,cr=build.charmRank;let base=objective();for(const ch of charmCand){build.charm=ch;build.charmRank=ch.ranks.length;const o=objective();if(o>base+1e-6){base=o;cur=ch;cr=ch.ranks.length;changed=true;}}build.charm=cur;build.charmRank=cr;}
+  }climbPhase=false;};
+  const runFrom=seedFn=>{build.aug={atk:0,aff:0,slot:0};build.decos={};build.charm=null;build.charmRank=1;seedFn();climb();assignDecos(pool);const o=objective();if(o>bO){bO=o;best=snapshot();}};
+  for(let r=0;r<R;r++)runFrom(()=>{slots.forEach(s=>{build[s]=cand[s][Math.floor(Math.random()*cand[s].length)]||null;});});
+  seeds.forEach(seed=>runFrom(()=>{slots.forEach(s=>{build[s]=seed[s]||cand[s][0]||null;});}));
+  applySnap(best);optimizeAug(pool);assignDecos(pool);best=snapshot();const d=computeDamage();
+  return {snap:best,d};
+}
+
+// ---- presets ----
+function presetsFor(w){
+  const P=[{id:"raw_c",name:"Max Damage",tag:"Comfort",bcls:"comfort",kind:"raw",cond:CC,skills:DMG_SKILLS,note:"Safe uptime (full HP)."},
+           {id:"raw_r",name:"Max Damage",tag:"Risky",bcls:"risky",kind:"raw",cond:CR,skills:DMG_SKILLS,note:"Assumes low HP – Heroics/Resentment."}];
+  if(w.elementType){P.push({id:"ele_c",name:"Max Element",tag:"Comfort",bcls:"comfort",kind:"element",cond:CC,skills:DMG_SKILLS,note:"Element focus, safe uptime."});
+    P.push({id:"ele_r",name:"Max Element",tag:"Risky",bcls:"risky",kind:"element",cond:CR,skills:DMG_SKILLS,note:"Element focus, low HP."});}
+  P.push({id:"comf",name:"Max Comfort",tag:"Safe",bcls:"safe",kind:"comfort",cond:CC,skills:ALL_REL,note:"Solid damage + survival skills."});
+  return P;
+}
+
+// ---- rendering weapon tabs & selection ----
+function renderTabs(){const t=$("#wtabs");t.innerHTML="";WTYPES.forEach(([k,n])=>{const ic=typeIconUrl[k]?'<img src="'+typeIconUrl[k]+'" alt="">':wIcon(k);const b=el("div","wtab"+(k===curType?" on":""),ic+"<span>"+n+"</span>");b.onclick=()=>{curType=k;const gt=$("#gType");if(gt)gt.value=k;renderTabs();openWeaponPicker();};t.appendChild(b);});}
+
+function selectWeapon(w){
+  curWeapon=w;curType=w.type;renderTabs();
+  const gt=$("#gType");if(gt)gt.value=w.type;
+  renderHero(w);
+  computeCards();
+}
+
+// ---- build cards ----
+let cardData=[];
+function computeCards(customTargets){
+  if(!curWeapon)return;
+  $("#hint").style.display="none";
+  build.weapon=curWeapon;
+  const list = customTargets ? [{id:"custom",name:"Custom Skills",tag:"Custom",bcls:"custom",kind:"custom",cond:CC,skills:new Set([...ALL_REL,...customTargets]),note:customTargets.join(", "),targets:customTargets}]
+                             : presetsFor(curWeapon);
+  cardData=[];selectedIdx=-1;const cont=$("#cards");cont.innerHTML="";
+  const skels=list.map(()=>{const s=el("div","skeleton");cont.appendChild(s);return s;});
+  let i=0;
+  const step=()=>{
+    if(i>=list.length)return;
+    const p=list[i];
+    const {snap,d}=optimize(p.kind,p.cond,p.skills,p.targets);
+    const card=buildCardData(p,snap,d);
+    cardData.push(card);
+    skels[i].replaceWith(renderCard(card,cardData.length-1));
+    i++; if(i<list.length) setTimeout(step,15);
+  };
+  setTimeout(step,15);
+}
+function buildCardData(p,snap,d){
+  applySnap(snap);
+  const armor=["head","chest","gloves","waist","legs"].map(k=>build[k]).filter(Boolean);
+  const decoNames={};Object.values(build.decos).forEach(dc=>{const nm=dc.name.replace(/ Jewel.*/,"");decoNames[nm]=(decoNames[nm]||0)+1;});
+  const charm=build.charm?(build.charm.ranks[build.charmRank-1]||build.charm.ranks.at(-1)):null;
+  return {preset:p,snap,efr:d.efr,efe:d.efe,trueRaw:d.trueRaw,trueEle:d.trueEle,aff:d.aff,critMult:d.critMult,color:d.color,sharp:d.sharp,
+    elementType:build.weapon.elementType,statusType:build.weapon.statusType,statusVal:build.weapon.elementVal,
+    byName:d.byName,sets:d.sets,weapon:build.weapon,armor:armor.slice(),charm:build.charm,charmName:charm?charm.name:null,
+    aug:Object.assign({},build.aug),decoNames,bloat:BLOAT[build.weapon.type]};
+}
+function sharpGauge(sharp,cap){
+  if(!sharp)return "";
+  const REF=420;let segs='';let used=0;
+  sharp.forEach((v,i)=>{if(v<=0)return;used+=v;segs+=`<i style="flex:0 0 ${Math.min(100,v/REF*100)}%;background:${SHARP_HEX[SHARP_COLORS[i]]}"></i>`;});
+  const empty=Math.max(0,100-used/REF*100);
+  return `<div class="sgauge"><span class="shandle"></span><div class="track">${segs}<i class="empty" style="flex:0 0 ${empty}%"></i></div></div>`;
+}
+const SICON={
+  attack:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L13 11 M11 9 L18 2 L21 5 L14 12 Z"/></svg>',
+  affinity:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4 L13 13 M20 4 L11 13 M8 15 l-4 5 M16 15 l4 5"/></svg>',
+  element:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3 C7 9 6 12 6 15 a6 6 0 0 0 12 0 c0-3-1-6-6-12z"/></svg>',
+  sharp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 12 h4 M21 12 h-4"/><rect x="8" y="9" width="8" height="6" rx="1"/></svg>'
+};
+function heroStat(icon,label,val,cls){return `<div class="hstat"><span class="hi">${icon}</span><span class="hl">${label}</span><span class="hv ${cls||''}">${val}</span></div>`;}
+function renderHero(w){
+  const hero=$("#hero");
+  if(!w){hero.innerHTML='<div class="heroCard empty">Select a weapon — or pick a goal above — to see the best builds.</div>';return;}
+  const atk=valMode==="ingame"?w.attack:Math.round(w.attack/BLOAT[w.type]);
+  const sharp=w.sharpMax||w.sharpBase;
+  let eleRow="";
+  if(w.elementType){const ev=valMode==="ingame"?w.elementVal:Math.round(w.elementVal/10*10)/10;eleRow=heroStat(SICON.element,w.elementType,ev);}
+  else if(w.statusType){eleRow=heroStat(SICON.element,w.statusType,w.elementVal);}
+  hero.innerHTML=`<div class="heroCard">
+    <div class="heroIcon">${weaponImgEl(w)}</div>
+    <div class="heroMain">
+      <div class="heroName">${w.name}</div>
+      <div class="heroType">${WTNAME[w.type]} · SR${w.rarity}${w.critElement?' · <span style="color:var(--acc)">◆Critical Element</span>':''}${w.awakening?' · Safi Awakening':''}${w.tier?' · '+w.tier:''}</div>
+    </div>
+    <div class="heroStats">
+      ${heroStat(SICON.attack,valMode==="ingame"?"Attack":"True Raw",atk)}
+      ${heroStat(SICON.affinity,"Affinity",Math.round(w.affinity)+"%",w.affinity<0?"neg":"")}
+      ${eleRow}
+      <div class="hstat sharprow"><span class="hi">${SICON.sharp}</span><span class="hl">Sharpness</span><span class="hgauge">${sharpGauge(sharp,false)}</span></div>
+    </div>
+  </div>`;
+}
+function skillHex(color){return `<span class="hex"><svg viewBox="0 0 24 24"><path d="M12 2 L20.5 7 V17 L12 22 L3.5 17 V7 Z" fill="${color}" stroke="#0a1a24" stroke-width="1.6"/></svg></span>`;}
+function decoName(d){return d.name.replace(/\s*Jewel\+?\s*\d*\s*$/,"");}
+function decoBars(container,slots){
+  (slots||[]).forEach(s=>{
+    if(s.deco){const d=s.deco;const sz=d.slot;const sk=(d.skills||[]).map(x=>x.skillName+" +"+x.level).join(", ");
+      container.appendChild(el("div","decoslot"+(sz>=s.rank?"":" over"),`${decoIconEl(d,20)}<span class="dn">${decoName(d)} Jewel [${sz}]</span><span class="dsz" title="${sk}">${sk}</span>`));
+    }else{container.appendChild(el("div","decoslot empty",`<span class="dn">Empty slot</span><span class="dsz">[${s.rank}]</span>`));}
+  });
+}
+function skillListEl(byName,dmgOnly){
+  const box=el("div","sklist");
+  Object.entries(byName).filter(([n])=>!dmgOnly||ALL_REL.has(n)).sort((a,b)=>b[1].lv-a[1].lv).forEach(([n,v])=>{
+    const cap=Math.max(v.max||v.lv,v.lv);const mx=v.max&&v.lv>=v.max;
+    let pips="";for(let i=0;i<cap;i++)pips+='<i'+(i<v.lv?' class="on"':'')+'></i>';
+    if(v.max&&v.lv<v.max)pips+='<span class="arw"></span>';
+    box.appendChild(el("div","skrow"+(mx?" max":""),`${skillHex(skillCat(n))}<span class="sn">${n}</span><span class="pips">${pips}</span><span class="lv">Lv ${v.lv}</span>`));
+  });
+  return box;
+}
+function renderCard(c,idx){
+  const card=el("div","card");
+  const p=c.preset;
+  const chead=el("div","chead",`<div class="nm">${c.title||p.name}</div><span class="badge ${p.bcls}">${p.tag}</span>`);
+  card.appendChild(chead);
+  // damage: attack (raw/in-game) + element value
+  const atk = valMode==="ingame" ? {v:Math.round(c.trueRaw*c.bloat),k:"Attack"} : {v:Math.round(c.trueRaw),k:"True Raw"};
+  const drow=el("div","dmgrow");
+  drow.appendChild(el("div","dmgbox raw",`<div class="k">${atk.k}</div><div class="v">${atk.v}</div><div class="sub">${p.note}</div>`));
+  if(c.elementType){const ev=valMode==="ingame"?Math.round(c.trueEle*10):Math.round(c.trueEle*10)/10;
+    drow.appendChild(el("div","dmgbox ele",`<div class="k">${c.elementType} dmg</div><div class="v">${ev}</div><div class="sub">${valMode==="ingame"?"in-game":"true"}</div>`));}
+  else if(c.statusType){drow.appendChild(el("div","dmgbox ele",`<div class="k">${c.statusType}</div><div class="v">${c.statusVal}</div><div class="sub">status</div>`));}
+  card.appendChild(drow);
+  const scol=c.color?({red:"Red",orange:"Orange",yellow:"Yellow",green:"Green",blue:"Blue",white:"White",purple:"Purple"}[c.color]):"–";
+  const metric=el("div","metric",`<span>Affinity: <b class="${c.aff<0?'':''}">${Math.round(c.aff)}%</b></span><span>Crit: <b>×${c.critMult.toFixed(2)}</b></span><span>Sharpness: <b>${scol}</b></span>`);
+  card.appendChild(metric);
+  card.insertAdjacentHTML("beforeend",sharpGauge(c.sharp));
+  if(c.sets.length){const u=[...new Set(c.sets)];card.appendChild(el("div","setb","◈ "+u.join(" · ")));}
+  // gear
+  const gear=el("div","gear");
+  gear.appendChild(bdRow(weaponImgEl(c.weapon),c.weapon.name,wSlotsSnap(c).map((s,i)=>({rank:s.rank,deco:c.snap.decos["weapon-"+i]})),augText(c.aug)||WTNAME[c.weapon.type],c.weapon.rarity));
+  ["head","chest","gloves","waist","legs"].forEach(k=>{const it=c.snap[k];if(!it)return;gear.appendChild(bdRow(armorIconEl(it),it.name,(it.slots||[]).map((s,i)=>({rank:s.rank,deco:c.snap.decos[k+"-"+i]})),it.skills.map(s=>s.skillName+" "+s.level).join(", "),it.rarity));});
+  if(c.charm){const rk=c.charm.ranks[c.snap.charmRank-1]||c.charm.ranks.at(-1);gear.appendChild(bdRow(charmIconEl(rk.rarity),rk.name,[],rk.skills.map(s=>s.skillName+" "+s.level).join(", "),rk.rarity));}
+  card.appendChild(gear);
+  const foot=el("div","cfoot");
+  const vbtn=el("span","lnk pick","View full build →");vbtn.onclick=e=>{e.stopPropagation();openBuildDetail(c);};
+  const sbtn=el("span","lnk","🔗 Share");sbtn.onclick=e=>{e.stopPropagation();shareCard(c);};
+  foot.append(vbtn,sbtn);card.appendChild(foot);
+  card.onclick=()=>openBuildDetail(c);
+  return card;
+}
+let selectedIdx=-1;
+function wSlotsSnap(c){const b=c.weapon.slots.map(x=>({rank:x.rank}));const sl=(c.snap.aug&&c.snap.aug.slot)||0;for(let i=0;i<sl;i++)b.push({rank:i===0?4:2});return b;}
+function augText(a){const p=[];if(a.atk)p.push("Attack ×"+a.atk);if(a.aff)p.push("Affinity ×"+a.aff);if(a.slot)p.push("Slot ×"+a.slot);return p.length?"Augment: "+p.join(", "):"";}
+function bdRow(icon,name,slots,sub,rar){
+  const r=el("div","bd-item");
+  const gi=el("div","gicon",icon);if(rar)frameRarity(gi,rar);
+  r.appendChild(gi);
+  const names=(slots||[]).filter(s=>s.deco).map(s=>s.deco.name.replace(/ Jewel.*/,"")).join(", ");
+  r.appendChild(el("div","gtext",`<div class="gn">${name}</div><div class="gs">${names||sub||"—"}</div>`));
+  if(slots&&slots.length){const sd=el("div","slots");slots.forEach(s=>sd.appendChild(slotDot(s.rank,s.deco)));r.appendChild(sd);}
+  return r;
+}
+function openBuildDetail(c){
+  $("#modalTitle").textContent=(c.title||c.preset.name)+(c.preset.tag?" · "+c.preset.tag:"");
+  $("#modalSearch").style.display="none";$("#modalFilters").innerHTML="";$("#modalFoot").style.display="none";
+  const L=$("#modalList");L.innerHTML="";
+  const atk=valMode==="ingame"?Math.round(c.trueRaw*c.bloat):Math.round(c.trueRaw);
+  const scol=c.color?({red:"Red",orange:"Orange",yellow:"Yellow",green:"Green",blue:"Blue",white:"White",purple:"Purple"}[c.color]):"–";
+  let dmg=`<span>${valMode==="ingame"?"Attack":"True Raw"} <b>${atk}</b></span>`;
+  if(c.elementType)dmg+=`<span>${c.elementType} <b style="color:var(--acc2)">${valMode==="ingame"?Math.round(c.trueEle*10):Math.round(c.trueEle*10)/10}</b></span>`;
+  else if(c.statusType)dmg+=`<span>${c.statusType} <b>${c.statusVal}</b></span>`;
+  dmg+=`<span>Affinity <b>${Math.round(c.aff)}%</b></span><span>Crit <b>×${c.critMult.toFixed(2)}</b></span><span>Sharpness <b>${scol}</b></span>`;
+  L.appendChild(el("div","bd-sum",dmg));
+  L.appendChild(el("div","bd-h","Equipment & decorations"));
+  const gear=el("div","bd-gear");
+  const wslots=wSlotsSnap(c).map((s,i)=>({rank:s.rank,deco:c.snap.decos["weapon-"+i]}));
+  gear.appendChild(bdRow(weaponImgEl(c.weapon),c.weapon.name,[],augText(c.aug)||WTNAME[c.weapon.type],c.weapon.rarity));
+  decoBars(gear,wslots);
+  ["head","chest","gloves","waist","legs"].forEach(k=>{const it=c.snap[k];if(!it)return;
+    const sl=(it.slots||[]).map((s,i)=>({rank:s.rank,deco:c.snap.decos[k+"-"+i]}));
+    gear.appendChild(bdRow(armorIconEl(it),it.name,[],it.skills.map(s=>s.skillName+" "+s.level).join(", "),it.rarity));
+    decoBars(gear,sl);});
+  if(c.charm){const rk=c.charm.ranks[c.snap.charmRank-1]||c.charm.ranks.at(-1);gear.appendChild(bdRow(charmIconEl(rk.rarity),rk.name,[],rk.skills.map(s=>s.skillName+" "+s.level).join(", "),rk.rarity));}
+  L.appendChild(gear);
+  L.appendChild(el("div","bd-h","Skills"));
+  L.appendChild(skillListEl(c.byName,false));
+  if(c.sets.length)L.appendChild(el("div","setb","◈ Set bonus: "+[...new Set(c.sets)].join(" · ")));
+  modalBg.classList.add("on");
+}
+const SLOT_COLOR={1:"#5b8fe0",2:"#63c98a",3:"#e0913a",4:"#d06fb8"};
+function frameRarity(){} // rarity is shown by the icons themselves (no borders)
+function slotDot(rank,deco){const filled=!!deco;const sz=(deco&&deco.slot)?deco.slot:rank;const d=el("div","slotdot"+(filled?" f":" e"));if(filled){d.title=(deco.name?decoName(deco)+" Jewel ["+sz+"]":"");d.innerHTML=decoIconEl(deco,18);}else{const c=SLOT_COLOR[rank]||"#4a5763";d.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="2" opacity="0.6"><path d="M12 3 L21 12 L12 21 L3 12 Z"/></svg>';}return d;}
+function gearRow(iconHTML,name,sub,slots,rar){
+  const r=el("div","gitem");
+  const gi=el("div","gicon",iconHTML);if(rar)frameRarity(gi,rar);
+  r.appendChild(gi);
+  r.appendChild(el("div","gtext",`<div class="gn">${name}</div><div class="gs">${sub||""}</div>`));
+  if(slots&&slots.length){const s=el("div","slots");slots.forEach(sl=>s.appendChild(slotDot(sl.rank,!!sl.f)));r.appendChild(s);}
+  return r;
+}
+function weaponSlotsFor(c){const b=c.weapon.slots.map(x=>({rank:x.rank}));for(let i=0;i<c.aug.slot;i++)b.push({rank:i===0?4:2});return b;}
+function wIconEl(type){return wIcon(type);}
+function weaponImgEl(w){if(!w)return "";const u=weaponIcon(w);return u?`<img loading="lazy" src="${u}" alt="">`:`<span style="color:${rc(w.rarity)}">${wIcon(w.type)}</span>`;}
+function armorIconEl(a){const u=armorIcon(a);return u?`<img loading="lazy" src="${u}" alt="">`:`<span style="color:${rc(a.rarity)}">${ARMOR_SLOT_ICON[a.type]||SLOTICON}</span>`;}
+function charmIconEl(r){return `<img loading="lazy" src="${charmIcon(r)}" alt="">`;}
+
+// ---- share ----
+function shareCard(c){
+  const s={wt:c.weapon.type,w:c.weapon.id,h:id(c,"head"),c:id(c,"chest"),g:id(c,"gloves"),wa:id(c,"waist"),l:id(c,"legs"),
+    ch:c.charm?c.charm.id:null,cr:c.snap.charmRank,d:Object.fromEntries(Object.entries(c.snap.decos).map(([k,v])=>[k,v.id])),ag:c.aug};
+  const code=btoa(unescape(encodeURIComponent(JSON.stringify(s))));
+  const url=location.origin+location.pathname+"#"+code;
+  navigator.clipboard.writeText(url).then(()=>toast("Build link copied")).catch(()=>prompt("Copy build link:",url));
+}
+function id(c,slot){const it=c.snap[slot];return it?it.id:null;}
+
+// ---- weapon picker ----
+const modalBg=$("#modalBg");
+function closeModal(){modalBg.classList.remove("on");$("#modalFoot").style.display="none";}
+$("#modalX").onclick=closeModal;modalBg.onclick=e=>{if(e.target===modalBg)closeModal();};
+function openWeaponPicker(){
+  $("#modalTitle").textContent="Select "+WTNAME[curType];$("#modalFoot").style.display="none";
+  const search=$("#modalSearch");search.value="";search.style.display="";
+  let elemF="all",tierF="all",sortBy="atk";
+  const filtEl=$("#modalFilters"),listEl=$("#modalList");
+  const items=(WEAPONS[curType]||[]).map(w=>({w,n:w.name.toLowerCase(),
+    meta:`Atk ${w.attack} · Aff ${w.affinity}% · SR${w.rarity}`+(w.elementType?` · ${w.elementType} ${w.elementVal}`:(w.statusType?` · ${w.statusType} ${w.elementVal}`:""))+(w.critElement?" · ◆CritElem":"")+(w.awakening?" · Safi":"")}));
+  function chips(){
+    filtEl.innerHTML="";
+    const mk=(l,v,cur,set)=>{const c=el("span","chip"+(v===cur?" on":""),l);c.onclick=()=>{set(v);chips();draw();};filtEl.appendChild(c);};
+    [["All","all"],["Fire","Fire"],["Water","Water"],["Ice","Ice"],["Thunder","Thunder"],["Dragon","Dragon"],["Status","status"],["Raw","none"]].forEach(([l,v])=>mk(l,v,elemF,x=>elemF=x));
+    [["Any tier","all"],["Craftable","craft"],["Kjárr","kjarr"],["Safi","safi"]].forEach(([l,v])=>mk(l,v,tierF,x=>tierF=x));
+    filtEl.appendChild(el("span",null,'<span style="flex-basis:100%;height:0"></span>'));
+    filtEl.appendChild(el("span",null,'<span style="color:var(--dim);font-size:11px;align-self:center;margin-right:2px;font-weight:600">Sort by</span>'));
+    const sm=(l,v)=>{const c=el("span","chip"+(v===sortBy?" on":""),l);c.onclick=()=>{sortBy=v;chips();draw();};filtEl.appendChild(c);};
+    [["Attack","atk"],["Affinity","aff"],["Element","ele"],["Rarity","rar"],["Name","name"]].forEach(([l,v])=>sm(l,v));
+  }
+  function matchF(w){
+    if(["Fire","Water","Ice","Thunder","Dragon"].includes(elemF)){if(w.elementType!==elemF)return false;}
+    else if(elemF==="status"){if(!w.statusType)return false;}
+    else if(elemF==="none"){if(w.elementType||w.statusType)return false;}
+    if(tierF==="kjarr"){if(w.tier!=="kjarr")return false;}else if(tierF==="safi"){if(w.tier!=="safi")return false;}else if(tierF==="craft"){if(w.tier)return false;}
+    return true;
+  }
+  function draw(){const q=search.value.trim().toLowerCase();listEl.innerHTML="";
+    let sh=items.filter(it=>matchF(it.w)&&(!q||it.n.includes(q)));
+    sh.sort((a,b)=>{const x=a.w,y=b.w;switch(sortBy){
+      case"aff":return (y.affinity||0)-(x.affinity||0)||(y.attack-x.attack);
+      case"ele":return (y.elementVal||0)-(x.elementVal||0)||(y.attack-x.attack);
+      case"rar":return (y.rarity-x.rarity)||(y.attack-x.attack);
+      case"name":return x.name.localeCompare(y.name);
+      default:return (y.attack-x.attack)||(y.rarity-x.rarity);}});
+    sh=sh.slice(0,400);
+    if(!sh.length){listEl.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">Nothing found.</div>';return;}
+    sh.forEach(it=>{const o=el("div","opt");o.innerHTML=`<div style="display:flex;align-items:center;gap:8px"><span class="optic">${weaponImgEl(it.w)}</span><span><span class="on2">${it.w.name}</span><div class="om">${it.meta}</div></span></div>`;o.onclick=()=>{selectWeapon(it.w);closeModal();};listEl.appendChild(o);});}
+  chips();search.oninput=draw;draw();modalBg.classList.add("on");setTimeout(()=>search.focus(),30);
+}
+$("#btnWeapon").onclick=openWeaponPicker;
+
+// ---- general goal search (best weapon+build across weapons) ----
+function fillGType(){const s=$("#gType");WTYPES.forEach(([k,n])=>{const o=document.createElement("option");o.value=k;o.textContent=n;s.appendChild(o);});}
+function quickScore(w,goal,element){const tr=w.attack/BLOAT[w.type];
+  if(goal==="element"){if(w.elementType!==element)return -1;return w.elementVal*(w.critElement?1.5:1)+tr*0.4;}
+  if(goal==="status"){if(!w.statusType)return -1;return w.elementVal+tr*0.2;}
+  return tr*(1+Math.max(0,w.affinity)/100);}
+function goalLabel(goal,element){return goal==="element"?element+" Element":goal==="status"?"Status":goal==="comfort"?"Comfort":"Max Damage";}
+function generalSearch(goal,element,typeFilter,playstyle){
+  $("#hint").style.display="none";curWeapon=null;
+  $("#hero").innerHTML='<div class="heroCard"><div class="heroIcon">'+wIcon(typeFilter==="all"?"great-sword":typeFilter)+'</div><div class="heroMain"><div class="heroName">Goal: '+goalLabel(goal,element)+'</div><div class="heroType">'+(playstyle==="risky"?"Risky":"Comfort")+' · '+(typeFilter==="all"?"all weapon types":WTNAME[typeFilter])+' · showing best matches</div></div></div>';
+  const types=typeFilter==="all"?WTYPES.map(t=>t[0]):[typeFilter];
+  let cands=[];types.forEach(t=>(WEAPONS[t]||[]).forEach(w=>{const q=quickScore(w,goal,element);if(q<0)return;cands.push({w,q});}));
+  cands.sort((a,b)=>b.q-a.q);cands=cands.slice(0,typeFilter==="all"?12:14);
+  const kind=goal==="element"?"element":(goal==="comfort"?"comfort":"raw");
+  const skills=goal==="comfort"?ALL_REL:DMG_SKILLS;const cond0=playstyle==="risky"?CR:CC;
+  const cont=$("#cards");cont.innerHTML="";cardData=[];selectedIdx=-1;
+  const prog=el("div","hint");prog.innerHTML='<span class="spin"></span> Evaluating '+cands.length+' weapons…';cont.appendChild(prog);
+  const results=[];let i=0;
+  const step=()=>{
+    if(i>=cands.length){finish();return;}
+    const w=cands[i].w;build.weapon=w;
+    const {snap,d}=optimize(kind,cond0,skills,[],3);
+    let score=kind==="element"?d.efr+d.efe*3:(kind==="comfort"?d.efr+comfortScore(d.byName):d.efr);
+    if(goal==="status")score=w.elementVal*10+d.efr*0.05;
+    results.push({w,snap,d,score});i++;setTimeout(step,4);
+  };
+  const finish=()=>{
+    results.sort((a,b)=>b.score-a.score);const top=results.slice(0,6);
+    cont.innerHTML="";cardData=[];
+    if(!top.length){cont.innerHTML='<div class="hint">No weapons match this goal.</div>';return;}
+    top.forEach((r,idx)=>{build.weapon=r.w;
+      const p={name:r.w.name,tag:goalLabel(goal,element)+" · "+(playstyle==="risky"?"Risky":"Comfort"),bcls:playstyle==="risky"?"risky":"comfort",kind,cond:cond0,note:WTNAME[r.w.type]+(r.w.tier?" · "+r.w.tier:"")};
+      const card=buildCardData(p,r.snap,r.d);card.title=r.w.name;cardData.push(card);cont.appendChild(renderCard(card,idx));});
+  };
+  setTimeout(step,10);
+}
+$("#gGoal").onchange=()=>{$("#gElem").style.display=$("#gGoal").value==="element"?"":"none";};
+$("#gPlay").querySelectorAll("button").forEach(b=>b.onclick=()=>{$("#gPlay").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));});
+$("#gGo").onclick=()=>{const goal=$("#gGoal").value,elem=$("#gElem").value,type=$("#gType").value,play=$("#gPlay").querySelector("button.on").dataset.p;generalSearch(goal,elem,type,play);};
+
+// ---- custom skills picker ----
+let selSkills=new Set();
+function openCustomPicker(){
+  if(!curWeapon){toast("Select a weapon first");return;}
+  $("#modalTitle").textContent="Build around skills";$("#modalFoot").style.display="flex";$("#modalFilters").innerHTML="";selSkills=new Set();updateSelCount();
+  const search=$("#modalSearch");search.value="";search.style.display="";
+  const names=[...new Set([...DMG_SKILLS,...COMFORT_SKILLS])].filter(n=>Object.values(DATA.skills).some(s=>s.name===n)).sort();
+  const listEl=$("#modalList");
+  function draw(){const q=search.value.trim().toLowerCase();listEl.innerHTML="";
+    names.filter(n=>!q||n.toLowerCase().includes(q)).forEach(n=>{const o=el("div","opt"+(selSkills.has(n)?" sel":""));o.innerHTML=`<div><span class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${skillCat(n)}"></span> <span class="on2">${n}</span></div><div class="om">${selSkills.has(n)?"✓":""}</div>`;o.onclick=()=>{if(selSkills.has(n))selSkills.delete(n);else selSkills.add(n);updateSelCount();draw();};listEl.appendChild(o);});}
+  search.oninput=draw;draw();modalBg.classList.add("on");setTimeout(()=>search.focus(),30);
+}
+function updateSelCount(){$("#selCount").textContent=selSkills.size?selSkills.size+" selected":"Pick one or more skills";}
+$("#modalGo").onclick=()=>{if(!selSkills.size){toast("Pick at least one skill");return;}closeModal();computeCards([...selSkills]);};
+$("#btnCustom").onclick=openCustomPicker;
+
+// ---- toggles ----
+$("#segMode").querySelectorAll("button").forEach(b=>b.onclick=()=>{mode=b.dataset.m;clearCandCache();$("#segMode").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));if(curWeapon)computeCards();});
+$("#segVal").querySelectorAll("button").forEach(b=>b.onclick=()=>{valMode=b.dataset.v;$("#segVal").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));// re-render cards cheaply
+  const cont=$("#cards");if(cardData.length){cont.innerHTML="";cardData.forEach((c,i)=>cont.appendChild(renderCard(c,i)));}});
+
+fillGType();$("#gType").value=curType;
+renderTabs();
+renderHero(null);
+loadAll();
+</script>
+</body>
+</html>
