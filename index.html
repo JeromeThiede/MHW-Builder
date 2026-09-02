@@ -388,7 +388,7 @@ function decoIconEl(d,px){px=px||18;const sz=Math.max(1,Math.min(4,(d&&d.slot)||
   if(idx==null)return gemSVG(decoHex(d),sz,px);
   const kira="https://cdn.kiranico.net/file/kiranico/mhworld-web/images/itm/icon/"+DECO_SHAPE[sz]+"_"+idx+".png";
   const svg=ICON_BASE+"Decorations/Color_"+String(idx).padStart(2,"0")+"_Rank_"+sz+".svg";
-  return '<img class="dgem" loading="lazy" src="'+kira+'" data-fb="'+svg+'" alt="" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.dataset.fb=\'\';}else{this.onerror=null;this.style.visibility=\'hidden\';}" style="width:'+px+'px;height:'+px+'px;object-fit:contain">';}
+  return '<img class="dgem" src="'+kira+'" data-fb="'+svg+'" alt="" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.dataset.fb=\'\';}else{this.onerror=null;this.style.visibility=\'hidden\';}" style="width:'+px+'px;height:'+px+'px;object-fit:contain">';}
 let mode="endgame", valMode="ingame";
 let curWeapon=null, curType="great-sword";
 // working build (used internally by engine)
@@ -596,7 +596,7 @@ function presetsFor(w){
 // ---- rendering weapon tabs & selection ----
 function renderTabs(){const t=$("#wtabs");t.innerHTML="";WTYPES.forEach(([k,n])=>{
   const b=el("div","wtab"+(k===curType?" on":""));
-  const img=document.createElement("img");img.loading="lazy";img.alt="";img.src=weaponIcon({type:k,rarity:8});
+  const img=document.createElement("img");img.alt="";img.src=weaponIcon({type:k,rarity:8});
   img.onerror=function(){this.onerror=null;const s=document.createElement("span");s.innerHTML=wIcon(k);const svg=s.firstElementChild;if(svg)this.replaceWith(svg);};
   const sp=document.createElement("span");sp.textContent=n;
   b.appendChild(img);b.appendChild(sp);
@@ -780,9 +780,9 @@ function gearRow(iconHTML,name,sub,slots,rar){
 }
 function weaponSlotsFor(c){const b=c.weapon.slots.map(x=>({rank:x.rank}));for(let i=0;i<c.aug.slot;i++)b.push({rank:i===0?4:2});return b;}
 function wIconEl(type){return wIcon(type);}
-function weaponImgEl(w){if(!w)return "";const u=weaponIcon(w);return u?`<img loading="lazy" src="${u}" alt="">`:`<span style="color:${rc(w.rarity)}">${wIcon(w.type)}</span>`;}
-function armorIconEl(a){const u=armorIcon(a);return u?`<img loading="lazy" src="${u}" alt="">`:`<span style="color:${rc(a.rarity)}">${ARMOR_SLOT_ICON[a.type]||SLOTICON}</span>`;}
-function charmIconEl(r){return `<img loading="lazy" src="${charmIcon(r)}" alt="">`;}
+function weaponImgEl(w){if(!w)return "";const u=weaponIcon(w);return u?`<img src="${u}" alt="">`:`<span style="color:${rc(w.rarity)}">${wIcon(w.type)}</span>`;}
+function armorIconEl(a){const u=armorIcon(a);return u?`<img src="${u}" alt="">`:`<span style="color:${rc(a.rarity)}">${ARMOR_SLOT_ICON[a.type]||SLOTICON}</span>`;}
+function charmIconEl(r){return `<img src="${charmIcon(r)}" alt="">`;}
 
 // ---- share ----
 function shareCard(c){
