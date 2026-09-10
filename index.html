@@ -526,6 +526,8 @@ function objective(){
   else if(curKind==="comfort"){let def=0;["head","chest","gloves","waist","legs"].forEach(k=>{const it=build[k];if(it&&it.defense)def+=it.defense.base||0;});v=d.efr+comfortScore(d.byName)+def*0.02;}
   else if(curKind==="custom"){let t=0;const bn=d.byName;curTargets.forEach(nm=>{t+=bn[nm]?bn[nm].lv:0;});v=t*1000+d.efr;}
   else v=d.efr;
+  // tiny quality tiebreaker (non-comfort): among near-equal builds prefer more defense → cleaner armor
+  if(curKind!=="comfort"){let def=0;["head","chest","gloves","waist","legs"].forEach(k=>{const it=build[k];if(it&&it.defense)def+=it.defense.base||0;});v+=def*0.004;}
   if(curBonusSet.size){const bn=d.byName;let b=0;curBonusSet.forEach(n=>{if(bn[n])b+=bn[n].lv;});v+=b*15;}
   const bn2=d.byName;
   // Set bonuses that grant a real skill already flow through byName; only the "invisible" ones
@@ -543,7 +545,8 @@ function openSlots(){const out=[];const add=(k,sl)=>{(sl||[]).forEach((s,i)=>out
 function fillUtility(){const {byName}=collectSkills();let s=comfortScore(byName);COMFORT_SKILLS.forEach(n=>{if(byName[n])s+=Math.min(byName[n].lv,byName[n].max||byName[n].lv)*0.4;});return s;}
 function assignDecos(pool){build.decos={};for(const sl of openSlots()){let best=null,bg=1e-9;const base=objective();const baseU=fillUtility();for(const d of pool){if(d.slot>sl.rank)continue;build.decos[sl.id]=d;const dg=objective()-base;const g=dg>1e-6?dg:0.0008*(fillUtility()-baseU);if(g>bg){bg=g;best=d;}delete build.decos[sl.id];}if(best)build.decos[sl.id]=best;}}
 function optimizeAug(pool){if(!build.weapon)return;const tot=augSockets();let bA={atk:0,aff:0,slot:0},bO=-1;for(let a=0;a<=3;a++)for(let f=0;f<=4;f++)for(let sl=0;sl<=2;sl++){let c=0;for(let i=0;i<a;i++)c+=AUG_COST.atk[i];for(let i=0;i<f;i++)c+=AUG_COST.aff[i];for(let i=0;i<sl;i++)c+=AUG_COST.slot[i];if(c>tot)continue;build.aug={atk:a,aff:f,slot:sl};assignDecos(pool);const o=objective();if(o>bO){bO=o;bA={atk:a,aff:f,slot:sl};}}build.aug=bA;}
-function armorCandidates(type,skillSet){const pool=DATA.armor.filter(a=>a.type===type&&(a.rank==="master"||a.rank==="high")&&progOK(a));const sc=a=>{let s=0;(a.skills||[]).forEach(k=>{if(skillSet.has(k.skillName))s+=k.level*3;});s+=(a.slots||[]).reduce((x,y)=>x+y.rank,0)+(a.defense?a.defense.base*0.01:0);return s;};return pool.sort((a,b)=>sc(b)-sc(a)).slice(0,18);}
+const CAND_SLOTW={1:2,2:4,3:7,4:11}; // slots are the flexible skill source (jewels) → value them highly
+function armorCandidates(type,skillSet){const pool=DATA.armor.filter(a=>a.type===type&&(a.rank==="master"||a.rank==="high")&&progOK(a));const sc=a=>{let s=0;(a.skills||[]).forEach(k=>{if(skillSet.has(k.skillName))s+=k.level*3;});(a.slots||[]).forEach(sl=>{s+=CAND_SLOTW[sl.rank]||0;});s+=(a.defense?a.defense.base*0.004:0);return s;};return pool.sort((a,b)=>sc(b)-sc(a)).slice(0,26);}
 function decoAllowed(d){if(mode==="endgame")return true;if(d.skills&&d.skills.length>1)return false;if(/\+/.test(d.name))return false;if(/^Hard /.test(d.name))return false;return true;}
 function snapshot(){return {weapon:build.weapon,head:build.head,chest:build.chest,gloves:build.gloves,waist:build.waist,legs:build.legs,charm:build.charm,charmRank:build.charmRank,decos:Object.assign({},build.decos),aug:Object.assign({},build.aug)};}
 function applySnap(s){Object.assign(build,{weapon:s.weapon,head:s.head,chest:s.chest,gloves:s.gloves,waist:s.waist,legs:s.legs,charm:s.charm,charmRank:s.charmRank,decos:Object.assign({},s.decos),aug:Object.assign({},s.aug)});}
